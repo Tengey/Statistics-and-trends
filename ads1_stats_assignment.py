@@ -30,14 +30,7 @@ def pandas_reader(path):
     return df_or, df_tr
 
 df0, df1 = pandas_reader('API_19_DS2_en_csv_v2_4700503.csv')
-print(df0)
-print('\n')
-print(df1)
-print('\n')
-print(df0.head())
-print('\n')
-print(df1.head())
-print('\n')
+
 
 # Exploring the statistical properties of df
 print(df1.describe())
