@@ -31,6 +31,14 @@ def pandas_reader(path):
 
 df0, df1 = pandas_reader('API_19_DS2_en_csv_v2_4700503.csv')
 
+print(df0)
+print('\n')
+print(df1)
+print('\n')
+print(df0.head())
+print('\n')
+print(df1.head())
+print('\n')
 
 # Exploring the statistical properties of df
 print(df1.describe())
@@ -39,6 +47,17 @@ print(df1.describe())
 #print(df1['Urban population (% of total population)'].describe())
 
 def indicator_line_plot (df_name, indicator_1, indicator_2):
+    """
+    This function takes in a DataFrame, and multiple indicator names to return
+    a line graph of the inputted indicators.
+     
+    Args: 
+        df_name, indicator_1 (str), indicator_2 (str) : all arguements are
+        taken as strings except for DataFrame.
+        
+    Return: 
+        Returns a line graph representing the inputted indicators. 
+    """
     indicators = [indicator_1, indicator_2]
     for indicator in indicators:
         
@@ -63,7 +82,7 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         
         data_2 = df_name[df_name['Indicator Name'] == indicator]
         data_3 = data_2.groupby(['Country Name'])['1980', '1990', '2000',
-                                              '2010', '2020'].mean()[80:100]
+                                              '2010', '2020'].mean()[60:80]
         data_3.plot(kind = 'bar')
         plt.title('{} from 1980 till 2020'.format(indicator))
         plt.show()
