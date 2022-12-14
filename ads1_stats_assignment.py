@@ -6,7 +6,6 @@ This is a temporary script file.
 """
 
 import pandas as pd 
-import numpy as np 
 import matplotlib.pyplot as plt
 import seaborn as sns 
 
@@ -52,7 +51,7 @@ def indicator_line_plot (df_name, indicator_1, indicator_2):
     a line graph of the inputted indicators.
      
     Args: 
-        df_name, indicator_1 (str), indicator_2 (str) : all arguements are
+        df_name, indicator_1 (str), indicator_2 (str): all arguements are
         taken as strings except for the DataFrame.
         
     Return: 
@@ -72,21 +71,22 @@ def indicator_line_plot (df_name, indicator_1, indicator_2):
         plt.legend(bbox_to_anchor=(1, 1.02), loc='upper left')    
         plt.title('{}'.format(indicator))
         plt.show()
+        
 indicator_line_plot(df0, 'Population, total',
                     'CO2 emissions (kg per PPP $ of GDP)')
 
 
 def bar_plot_ind(df_name, indicator_1, indicator_2):
     """
-    This function takes in a DataFrame, and multiple indicator names to return
-    a bar graph of the inputted indicators.
+    This function takes in 3 positional arguements, a DataFrame and 2 different
+    indicator names to return a bar graph of the inputted indicators.
      
     Args: 
-        df_name, indicator_1 (str), indicator_2 (str) : all arguements are
-        taken as strings except for the DataFrame.
+        df_name, indicator_1 (str), indicator_2 (str): all arguements are
+        taken as strings except for the first one, the DataFrame.
         
     Return: 
-        Returns a bar graph trends of particular indicators by years in
+        Returns a bar graph showing trends of particular indicators by years in
         different countries. 
     """
     indicators = [indicator_1, indicator_2]
@@ -94,15 +94,29 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         
         data_2 = df_name[df_name['Indicator Name'] == indicator]
         data_3 = data_2.groupby(['Country Name'])['1980', '1990', '2000',
-                                              '2010', '2020'].mean()[170:190]
+                                              '2010', '2020'].mean()[159:162]
         data_3.plot(kind = 'bar')
         plt.title('{} from 1980 till 2020'.format(indicator))
         plt.show()
+        
 bar_plot_ind(df0, 'Agriculture, forestry, and fishing, value added (% of GDP)',
-             'Energy use (kg of oil equivalent per capita)', 'Population, total')
+             'Energy use (kg of oil equivalent per capita)')
 
 
 def country_correlation(df_name, country_x, country_y, country_z):
+    """
+    This function takes in 4 positional arguements, a DataFrame and 3 different
+    country names to return a correlation table of the inputted countries.
+     
+    Args: 
+        df_name, country_x (str), country_y (str), country_z (str): all
+        arguements are taken as strings except for the first one,
+        the DataFrame.
+        
+    Return: 
+        Returns a correlation table/ heatmap showing trends of various
+        indicators in selected countries. 
+    """
     countries = [country_x, country_y, country_z]
     for country in countries:
         
@@ -119,9 +133,7 @@ def country_correlation(df_name, country_x, country_y, country_z):
         plt.title('{}'.format(country))
         plt.legend([], frameon=False)
         plt.show()
+        
 country_correlation(df1, 'Lesotho', 'Zimbabwe', 'South Africa')
-
-
-
 
 
