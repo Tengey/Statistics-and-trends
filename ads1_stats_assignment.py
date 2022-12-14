@@ -4,10 +4,11 @@ Spyder Editor
 
 This is a temporary script file.
 """
-
 import pandas as pd 
 import matplotlib.pyplot as plt
-import seaborn as sns 
+import seaborn as sns
+import numpy as np
+import scipy.stats as stats
 
 def pandas_reader(path): 
     """
@@ -27,20 +28,6 @@ def pandas_reader(path):
     df_or = df.reset_index()
     df_tr = df.transpose()
     return df_or, df_tr
-
-# df0 for orgininal DataFrame and df1 for transposed DataFrame
-df0, df1 = pandas_reader('API_19_DS2_en_csv_v2_4700503.csv')
-
-# printing first 5 rows of each DataFrame
-print(df0.head())
-print('\n')
-print(df1.head())
-print('\n')
-
-# Exploring the statistical properties of df1 and df0
-print(df1.describe())
-print(df0.describe())
-
 
 def indicator_line_plot (df_name, indicator_1, indicator_2):
     """
@@ -69,10 +56,6 @@ def indicator_line_plot (df_name, indicator_1, indicator_2):
         plt.title('{}'.format(indicator))
         plt.show()
         
-indicator_line_plot(df0, 'Population, total',
-                    'Energy use (kg of oil equivalent per capita)')
-
-
 def bar_plot_ind(df_name, indicator_1, indicator_2):
     """
     This function takes in 3 positional arguements, a DataFrame and 2 different
@@ -92,19 +75,16 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         data_1 = df_name[df_name['Indicator Name'] == indicator]
         data_1.loc[(data_1['Country Name']=="Egypt, Arab Rep."),
                    'Northern Africa'] = "Egypt, Arab Rep."
-        data_1.loc[(data_1['Country Name']=="Libya"), 'Northern Africa']
-        = "Libya"
-        data_1.loc[(data_1['Country Name']=="Morocco"), 'Northern Africa']
-        = "Morocco"
+        data_1.loc[(data_1['Country Name']=="Libya"),
+                   'Northern Africa'] = "Libya"
+        data_1.loc[(data_1['Country Name']=="Morocco"),
+                   'Northern Africa']= "Morocco"
         df = data_1.groupby(['Northern Africa'])['1980', '1990', '2000',
                                                  '2010', '2020'].mean()
         df.plot(kind = 'bar', colormap='Paired')
+        plt.legend(bbox_to_anchor=(1, 1.02), loc='upper left')    
         plt.title('{}'.format(indicator))
         plt.show()
-        
-bar_plot_ind(df0, 'Agriculture, forestry, and fishing, value added (% of GDP)',
-             'CO2 emissions (kg per PPP $ of GDP)')
-
 
 def country_correlation(df_name, country_x, country_y, country_z):
     """
@@ -137,8 +117,34 @@ def country_correlation(df_name, country_x, country_y, country_z):
         plt.legend([], frameon=False)
         plt.show()
         
+# df0 for orgininal DataFrame and df1 for transposed DataFrame
+df0, df1 = pandas_reader('API_19_DS2_en_csv_v2_4700503.csv')
+
+# printing first 5 rows of each DataFrame
+print(df0.head())
+print('\n')
+print(df1.head())
+print('\n')
+
+# Exploring the statistical properties
+indic = ['Energy use (kg of oil equivalent per capita)',
+        'Population, total',
+        'Agriculture, forestry, and fishing, value added (% of GDP)',
+        'CO2 emissions (kg per PPP $ of GDP)']
+print(df1['Lesotho'][indic].describe())
+print(df1['Zimbabwe'][indic].describe())
+print(df1['South Africa'][indic].describe())
+print(df1['World'][indic].describe())
+print('World Population total Average: ',
+      np.average(df1['World']['Population, total']))
+print('World Population total Skewmess: ',
+      stats.skew(df1['World']['Population, total']))
+print('World Population total Kurtosis: ',
+      stats.kurtosis(df1['World']['Population, total']))
+
+# calling the functions to plot the graphs
+indicator_line_plot(df0, 'Population, total',
+                    'Energy use (kg of oil equivalent per capita)')
+bar_plot_ind(df0, 'Agriculture, forestry, and fishing, value added (% of GDP)',
+             'CO2 emissions (kg per PPP $ of GDP)')        
 country_correlation(df1, 'Lesotho', 'Zimbabwe', 'South Africa')
-
-
-
-
