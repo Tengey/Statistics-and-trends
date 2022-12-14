@@ -53,7 +53,7 @@ def indicator_line_plot (df_name, indicator_1, indicator_2):
      
     Args: 
         df_name, indicator_1 (str), indicator_2 (str) : all arguements are
-        taken as strings except for DataFrame.
+        taken as strings except for the DataFrame.
         
     Return: 
         Returns a line graph representing the inputted indicators. 
@@ -77,12 +77,23 @@ indicator_line_plot(df0, 'Population, total',
 
 
 def bar_plot_ind(df_name, indicator_1, indicator_2):
+    """
+    This function takes in a DataFrame, and multiple indicator names to return
+    a bar graph of the inputted indicators.
+     
+    Args: 
+        df_name, indicator_1 (str), indicator_2 (str) : all arguements are
+        taken as strings except for the DataFrame.
+        
+    Return: 
+        Returns a line graph representing the inputted indicators. 
+    """
     indicators = [indicator_1, indicator_2]
     for indicator in indicators:
         
         data_2 = df_name[df_name['Indicator Name'] == indicator]
         data_3 = data_2.groupby(['Country Name'])['1980', '1990', '2000',
-                                              '2010', '2020'].mean()[60:80]
+                                              '2010', '2020'].mean()[160:163]
         data_3.plot(kind = 'bar')
         plt.title('{} from 1980 till 2020'.format(indicator))
         plt.show()
