@@ -73,7 +73,7 @@ def indicator_line_plot (df_name, indicator_1, indicator_2):
         plt.show()
         
 indicator_line_plot(df0, 'Population, total',
-                    'CO2 emissions (kg per PPP $ of GDP)')
+                    'Energy use (kg of oil equivalent per capita)')
 
 
 def bar_plot_ind(df_name, indicator_1, indicator_2):
@@ -98,11 +98,11 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         data_1.loc[(data_1['Country Name']=="Morocco"), 'Northern Africa'] = "Morocco"
         df = data_1.groupby(['Northern Africa'])['1980', '1990', '2000', '2010', '2020'].mean()
         df.plot(kind = 'bar', colormap='Paired')
-        plt.title('{} from 1980 till 2020'.format(indicator))
+        plt.title('{}'.format(indicator))
         plt.show()
         
 bar_plot_ind(df0, 'Agriculture, forestry, and fishing, value added (% of GDP)',
-             'Energy use (kg of oil equivalent per capita)')
+             'CO2 emissions (kg per PPP $ of GDP)')
 
 
 def country_correlation(df_name, country_x, country_y, country_z):
@@ -137,5 +137,7 @@ def country_correlation(df_name, country_x, country_y, country_z):
         plt.show()
         
 country_correlation(df1, 'Lesotho', 'Zimbabwe', 'South Africa')
+
+#print(df1['Population, total'].sum())
 
 
