@@ -28,22 +28,19 @@ def pandas_reader(path):
     df_tr = df.transpose()
     return df_or, df_tr
 
+# df0 for orgininal DataFrame and df1 for transposed DataFrame
 df0, df1 = pandas_reader('API_19_DS2_en_csv_v2_4700503.csv')
 
-print(df0)
-print('\n')
-print(df1)
-print('\n')
+# printing first 5 rows of each DataFrame
 print(df0.head())
 print('\n')
 print(df1.head())
 print('\n')
 
-# Exploring the statistical properties of df
+# Exploring the statistical properties of df1 and df0
 print(df1.describe())
+print(df0.describe())
 
-# Exploring the statistical properties of df
-#print(df1['Urban population (% of total population)'].describe())
 
 def indicator_line_plot (df_name, indicator_1, indicator_2):
     """
@@ -93,10 +90,14 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
     for indicator in indicators:
         
         data_1 = df_name[df_name['Indicator Name'] == indicator]
-        data_1.loc[(data_1['Country Name']=="Egypt, Arab Rep."), 'Northern Africa'] = "Egypt, Arab Rep."
-        data_1.loc[(data_1['Country Name']=="Libya"), 'Northern Africa'] = "Libya"
-        data_1.loc[(data_1['Country Name']=="Morocco"), 'Northern Africa'] = "Morocco"
-        df = data_1.groupby(['Northern Africa'])['1980', '1990', '2000', '2010', '2020'].mean()
+        data_1.loc[(data_1['Country Name']=="Egypt, Arab Rep."),
+                   'Northern Africa'] = "Egypt, Arab Rep."
+        data_1.loc[(data_1['Country Name']=="Libya"), 'Northern Africa']
+        = "Libya"
+        data_1.loc[(data_1['Country Name']=="Morocco"), 'Northern Africa']
+        = "Morocco"
+        df = data_1.groupby(['Northern Africa'])['1980', '1990', '2000',
+                                                 '2010', '2020'].mean()
         df.plot(kind = 'bar', colormap='Paired')
         plt.title('{}'.format(indicator))
         plt.show()
@@ -138,6 +139,6 @@ def country_correlation(df_name, country_x, country_y, country_z):
         
 country_correlation(df1, 'Lesotho', 'Zimbabwe', 'South Africa')
 
-#print(df1['Population, total'].sum())
+
 
 
