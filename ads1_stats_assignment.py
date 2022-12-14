@@ -86,19 +86,20 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         taken as strings except for the DataFrame.
         
     Return: 
-        Returns a line graph representing the inputted indicators. 
+        Returns a bar graph trends of particular indicators by years in
+        different countries. 
     """
     indicators = [indicator_1, indicator_2]
     for indicator in indicators:
         
         data_2 = df_name[df_name['Indicator Name'] == indicator]
         data_3 = data_2.groupby(['Country Name'])['1980', '1990', '2000',
-                                              '2010', '2020'].mean()[160:163]
+                                              '2010', '2020'].mean()[170:190]
         data_3.plot(kind = 'bar')
         plt.title('{} from 1980 till 2020'.format(indicator))
         plt.show()
 bar_plot_ind(df0, 'Agriculture, forestry, and fishing, value added (% of GDP)',
-             'Energy use (kg of oil equivalent per capita)')
+             'Energy use (kg of oil equivalent per capita)', 'Population, total')
 
 
 def country_correlation(df_name, country_x, country_y, country_z):
