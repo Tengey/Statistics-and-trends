@@ -86,16 +86,18 @@ def bar_plot_ind(df_name, indicator_1, indicator_2):
         taken as strings except for the first one, the DataFrame.
         
     Return: 
-        Returns a bar graph showing trends of particular indicators by years in
-        different countries. 
+        Returns a bar graph showing trends of particular indicators by
+        countries in years. 
     """
     indicators = [indicator_1, indicator_2]
     for indicator in indicators:
         
-        data_2 = df_name[df_name['Indicator Name'] == indicator]
-        data_3 = data_2.groupby(['Country Name'])['1980', '1990', '2000',
-                                              '2010', '2020'].mean()[159:162]
-        data_3.plot(kind = 'bar')
+        data_1 = df_name[df_name['Indicator Name'] == indicator]
+        data_1.loc[(data_1['Country Name']=="Egypt, Arab Rep."), 'Northern Africa'] = "Egypt, Arab Rep."
+        data_1.loc[(data_1['Country Name']=="Libya"), 'Northern Africa'] = "Libya"
+        data_1.loc[(data_1['Country Name']=="Morocco"), 'Northern Africa'] = "Morocco"
+        df = data_1.groupby(['Northern Africa'])['1980', '1990', '2000', '2010', '2020'].mean()
+        df.plot(kind = 'bar', colormap='Paired')
         plt.title('{} from 1980 till 2020'.format(indicator))
         plt.show()
         
@@ -129,7 +131,7 @@ def country_correlation(df_name, country_x, country_y, country_z):
             'Total greenhouse gas emissions (% change from 1990)',
             'Other greenhouse gas emissions (% change from 1990)',
             'CO2 emissions (kg per PPP $ of GDP)']
-        sns.heatmap(nation[cols].corr(), annot=True)
+        sns.heatmap(nation[cols].corr(), annot=True, cmap="YlGnBu")
         plt.title('{}'.format(country))
         plt.legend([], frameon=False)
         plt.show()
